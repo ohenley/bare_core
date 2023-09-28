@@ -1,0 +1,51 @@
+with "config/bare_core_config.gpr";
+project Bare_Core is
+
+   for Target use "arm-eabi";
+   for Runtime ("Ada") use "light-cortex" & "-" & Bare_Core_Config.Core;
+
+   Src_Dirs := ();
+   Lib_Name := "";
+   case Bare_Core_Config.Core is
+      when "m7f" =>
+         Src_Dirs := ("src/arm/cortex_m",
+                      "src/arm/cortex_m/cm7",
+                      "src/arm/cortex_m/fpu",
+                      "src/arm/cortex_m/cache",
+                      "src/arm/cortex_m/nvic_cm4_cm7");
+         Lib_Name := "_cortex_m7f";
+      when "m4f" =>
+         Src_Dirs := ("src/arm/cortex_m",
+                      "src/arm/cortex_m/cm4f",
+                      "src/arm/cortex_m/fpu",
+                      "src/arm/cortex_m/nocache",
+                      "src/arm/cortex_m/nvic_cm4_cm7");
+         Lib_Name := "_cortex_m4f";
+   end case;
+
+   for Library_Name use Lib_Name;
+   for Library_Version use Project'Library_Name & ".so." & Bare_Core_Config.Crate_Version;
+
+   for Source_Dirs use ("src/", "config/") & Src_Dirs;
+   for Object_Dir use "obj/" & Bare_Core_Config.Build_Profile;
+   for Create_Missing_Dirs use "True";
+   for Library_Dir use "lib";
+
+   type Library_Type_Type is ("relocatable", "static", "static-pic");
+   Library_Type : Library_Type_Type :=
+     external ("BARE_CORE_LIBRARY_TYPE", external ("LIBRARY_TYPE", "static"));
+   for Library_Kind use Library_Type;
+
+   package Compiler is
+      for Default_Switches ("Ada") use Bare_Core_Config.Ada_Compiler_Switches;
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use ("-Es"); --  Symbolic traceback
+   end Binder;
+
+   package Install is
+      for Artifacts (".") use ("share");
+   end Install;
+
+end Bare_Core;

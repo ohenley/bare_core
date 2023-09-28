@@ -1,0 +1,13 @@
+name = "bare_core"
+description = "Shiny new project"
+version = "0.1.0-dev"
+
+authors = ["Olivier Henley"]
+maintainers = ["Olivier Henley <olivier.henley@gmail.com>"]
+maintainers-logins = ["ohenley"]
+
+[configuration.variables]
+core = { type = "Enum", values = ["m4f", "m7f"], default = "m7f" }
+
+[[depends-on]]
+bare_types = "0.1.0-dev"
