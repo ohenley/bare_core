@@ -1,12 +1,15 @@
 with "config/bare_core_config.gpr";
 project Bare_Core is
 
+   CORE := Bare_Core_Config.Core & Bare_Core_Config.FLOAT_SUPPORT;
+
    for Target use "arm-eabi";
-   for Runtime ("Ada") use "light-cortex" & "-" & Bare_Core_Config.Core;
+   for Runtime ("Ada") use "light-cortex" & "-" & CORE;
 
    Src_Dirs := ();
    Lib_Name := "";
-   case Bare_Core_Config.Core is
+   
+   case CORE is
       when "m7f" =>
          Src_Dirs := ("src/arm/cortex_m",
                       "src/arm/cortex_m/cm7",

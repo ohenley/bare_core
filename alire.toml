@@ -8,7 +8,8 @@ maintainers-logins = ["ohenley"]
 
 [configuration.variables]
 core_type = { type = "Enum", values = ["F", "G", "H", "L", "W"], default = "F" }
-core = { type = "Enum", values = ["m4f", "m7f"], default = "m7f" }
+core = { type = "Enum", values = ["m4", "m7"], default = "m7" }
+float_support = { type = "Enum", values = ["f", "nof"], default = "f" }
 
 [[depends-on]]
 bare_types = "0.1.0-dev"
