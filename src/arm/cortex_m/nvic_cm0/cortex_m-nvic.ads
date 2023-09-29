@@ -42,7 +42,7 @@
 --  This file provides Nested Vector interrupt Controller definitions for the
 --  ARM Cortex M0 microcontrollers from ST Microelectronics.
 
-with Bare_Types; use Bare_Types;                  use HAL;
+with Bare_Types; use Bare_Types;
 
 package Cortex_M.NVIC is  -- the Nested Vectored Interrupt Controller
 

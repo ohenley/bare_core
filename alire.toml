@@ -7,6 +7,7 @@ maintainers = ["Olivier Henley <olivier.henley@gmail.com>"]
 maintainers-logins = ["ohenley"]
 
 [configuration.variables]
+core_type = { type = "Enum", values = ["F", "G", "H", "L", "W"], default = "F" }
 core = { type = "Enum", values = ["m4f", "m7f"], default = "m7f" }
 
 [[depends-on]]
